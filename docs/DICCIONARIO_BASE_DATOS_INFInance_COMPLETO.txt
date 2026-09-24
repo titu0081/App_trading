@@ -1,0 +1,183 @@
+DISEÑO DE LA BASE DE DATOS (SUPABASE / POSTGRESQL)
+
+La base de datos del proyecto Infinance se ha diseñado siguiendo el modelo relacional, normalizado hasta la 3ª Forma Normal (3FN) para evitar la redundancia de datos y garantizar la integridad referencial. Se implementa en PostgreSQL a través del servicio BaaS (Backend as a Service) de Supabase.
+
+A continuación, se detalla el modelo entidad-relación y la justificación de cada tabla:
+
+1. TABLAS CATÁLOGO Y ENUMS (Reglas de Negocio)
+-------------------------------------------------
+Antes de crear las tablas, se han definido tipos de datos enumerados (ENUMs) para garantizar que ciertos campos solo admitan valores predefinidos, evitando errores de inserción:
+- asset_type: 'stock', 'crypto', 'forex', 'index'.
+- api_source: 'finnhub', 'coingecko', 'alphavantage', 'twelvedata'.
+- alert_type: 'price_target', 'percent_variation', 'indicator', 'dividend'.
+- error_level: 'INFO', 'WARNING', 'ERROR', 'CRITICAL'.
+
+DICCIONARIO DE DATOS:
+- asset_type: 'stock' (acciones), 'crypto' (criptomonedas), 'forex' (divisas), 'index' (índices bursátiles).
+- api_source: 'finnhub', 'coingecko', 'alphavantage', 'twelvedata'. Indica a qué API externa debe llamar el backend.
+- alert_type: 'price_target' (precio objetivo), 'percent_variation' (variación porcentual), 'indicator' (indicador técnico), 'dividend' (pago de dividendo).
+- alert_condition: 'above' (por encima de), 'below' (por debajo de), 'crosses_up' (cruza hacia arriba), 'crosses_down' (cruza hacia abajo).
+- error_level: 'INFO', 'WARNING', 'ERROR', 'CRITICAL'. Nivel de severidad de los logs del sistema.
+
+
+
+2. TABLAS PRINCIPALES Y RELACIONES
+-------------------------------------------------
+
+A. financial_assets (Catálogo Global de Activos)
+- Descripción: Almacena todos los instrumentos financieros que la aplicación puede monitorizar. Es una tabla independiente de los usuarios.
+- Campos: id (PK), symbol (Ej: AAPL), name, type, source_api (indica a qué API externa debe llamar FastAPI para obtener el precio en tiempo real).
+
+B. auth.users y user_profiles (Gestión de Identidad)
+- Descripción: La tabla auth.users es gestionada nativamente por Supabase Auth. Para almacenar datos extra del usuario (nombre, avatar) sin alterar el esquema de autenticación, se crea la tabla user_profiles.
+- Relación: 1:1 con auth.users.
+
+C. user_watchlists (Listas de Seguimiento)
+- Descripción: Permite a cada usuario crear múltiples listas personalizadas (ej. "Mis Cryptos", "Acciones Tech").
+- Relación: 1:N con auth.users. Un usuario puede tener muchas listas, pero una lista pertenece a un solo usuario (user_id FK).
+
+D. watchlist_assets (Tabla Puente N:M)
+- Descripción: Resuelve la relación de "muchos a muchos" entre las listas de los usuarios y el catálogo de activos globales.
+- Relación: N:M. Un activo puede estar en muchas listas de distintos usuarios, y una lista contiene muchos activos. Relaciona user_watchlists.id y financial_assets.id.
+
+E. asset_dividends (Dividendos de Acciones)
+- Descripción: Histórico de pagos de dividendos exclusivo de activos de tipo renta variable (stocks).
+- Relación: 1:N con financial_assets. Un activo puede tener múltiples pagos de dividendos a lo largo del tiempo.
+
+F. user_alerts (Configuración de Alertas)
+- Descripción: Almacena las alertas de precio o indicadores configuradas por los usuarios.
+- Relación: 1:N con auth.users y 1:N con financial_assets. Un usuario puede crear muchas alertas sobre distintos activos.
+
+G. alert_history (Historial de Eventos)
+- Descripción: Registro (log) de cuándo una alerta se ha disparado.
+- Relación: 1:N con user_alerts. Una alerta configurada puede dispararse múltiples veces a lo largo del tiempo, generando un histórico.
+
+H. system_error_logs (Logs de Errores del Sistema)
+- Descripción: Tabla independiente gestionada exclusivamente por el backend (FastAPI). Cuando ocurre un fallo en la conexión con las APIs externas, rate limiting, o cualquier excepción en el servidor, FastAPI inserta un registro aquí con el nivel de error, el origen y el stack trace.
+- Seguridad: No es accesible por los usuarios de la app. Solo el rol de servicio (service_role) de Supabase puede escribir y leer esta tabla.
+
+I. asset_prices (Precios Históricos de Activos)
+- Descripción: Almacena el histórico de precios de los activos financieros obtenidos desde las APIs externas (Finnhub, CoinGecko). Funciona como caché de datos para evitar saturar las APIs con peticiones repetidas y para servir gráficos históricos de forma rápida desde la base de datos.
+- Relación: 1:N con financial_assets. Un activo puede tener múltiples registros de precio a lo largo del tiempo.
+
+J. user_notifications (Notificaciones de Usuario)
+- Descripción: Almacena las notificaciones generadas cuando una alerta se dispara. Permite al usuario ver un listado de eventos, marcarlos como leídos y evita que el sistema envíe notificaciones duplicadas por la misma alerta.
+- Relación: 1:N con auth.users y 1:N con user_alerts. Un usuario recibe múltiples notificaciones, y una alerta puede generar múltiples notificaciones a lo largo del tiempo.
+
+3. SEGURIDAD A NIVEL DE BASE DE DATOS (RLS)
+-------------------------------------------------
+Se ha implementado Row Level Security (RLS) en todas las tablas que contienen datos de usuarios. Esto significa que la base de datos filtra automáticamente las consultas en función del ID del usuario logueado (auth.uid()). Un usuario nunca podrá acceder a las watchlists, alertas o perfiles de otro usuario, garantizando la privacidad y seguridad de los datos a nivel de motor de base de datos, independientemente de la lógica del backend.
+
+4. DICCIONARIO DE DATOS
+------------------------------------------------
+DICCIONARIO DE TABLAS Y CAMPOS
+-------------------------------------------------
+
+A. financial_assets (Catálogo Global de Activos)
+- Descripción: Almacena todos los instrumentos financieros que la aplicación puede monitorizar. Es una tabla independiente de los usuarios.
+- Campos:
+  * id (UUID, PK): Identificador único del activo.
+  * symbol (TEXT, UNIQUE): Ticker del activo (Ej: 'AAPL', 'BTC', 'EURUSD').
+  * name (TEXT): Nombre descriptivo de la empresa o moneda (Ej: 'Apple Inc.', 'Bitcoin').
+  * type (ENUM asset_type): Tipo de instrumento financiero.
+  * source_api (ENUM api_source): Proveedor de datos del que FastAPI debe obtener el precio en tiempo real.
+  * created_at (TIMESTAMPTZ): Fecha y hora de creación del registro.
+
+B. auth.users y user_profiles (Gestión de Identidad)
+- Descripción: La tabla auth.users es gestionada nativamente por Supabase. Para almacenar datos extra del usuario sin alterar el esquema de autenticación, se crea user_profiles.
+- Relación: 1:1 con auth.users.
+- Campos de user_profiles:
+  * id (UUID, PK, FK): Mismo ID que el usuario en auth.users. Relaciona ambos datos.
+  * full_name (TEXT): Nombre completo del usuario para mostrar en el perfil.
+  * avatar_url (TEXT): URL de la imagen de avatar del usuario.
+  * created_at (TIMESTAMPTZ): Fecha de creación del perfil.
+
+C. user_watchlists (Listas de Seguimiento)
+- Descripción: Permite a cada usuario crear múltiples listas personalizadas (ej. "Mis Cryptos", "Acciones Tech").
+- Relación: 1:N con auth.users.
+- Campos:
+  * id (UUID, PK): Identificador único de la lista.
+  * user_id (UUID, FK): Referencia al usuario propietario (auth.users.id). Si se borra el usuario, se borran sus listas (ON DELETE CASCADE).
+  * name (TEXT): Nombre asignado por el usuario a la lista.
+  * created_at (TIMESTAMPTZ): Fecha de creación de la lista.
+
+D. watchlist_assets (Tabla Puente N:M)
+- Descripción: Resuelve la relación de "muchos a muchos" entre las listas de los usuarios y el catálogo de activos globales.
+- Relación: N:M. Un activo puede estar en muchas listas, y una lista contiene muchos activos.
+- Campos:
+  * id (UUID, PK): Identificador único de la relación.
+  * watchlist_id (UUID, FK): Referencia a la lista (user_watchlists.id).
+  * asset_id (UUID, FK): Referencia al activo (financial_assets.id).
+  * added_at (TIMESTAMPTZ): Fecha en la que el usuario añadió el activo a la lista.
+  * Restricción UNIQUE: Evita que el mismo activo se añada dos veces a la misma lista.
+
+E. asset_dividends (Dividendos de Activos)
+- Descripción: Histórico de pagos de dividendos exclusivo de activos de tipo renta variable (stocks).
+- Relación: 1:N con financial_assets.
+- Campos:
+  * id (UUID, PK): Identificador único del registro de dividendo.
+  * asset_id (UUID, FK): Referencia al activo que paga el dividendo (financial_assets.id).
+  * amount (NUMERIC): Importe económico del dividendo pagado por acción.
+  * yield (NUMERIC): Rentabilidad porcentual del dividendo (Ej: 3.5 para 3.5%).
+  * pay_date (DATE): Fecha en la que se efectúa el pago del dividendo.
+  * ex_dividend_date (DATE): Fecha límite para poseer la acción y tener derecho al dividendo.
+  * created_at (TIMESTAMPTZ): Fecha de registro del dato en el sistema.
+
+F. user_alerts (Configuración de Alertas)
+- Descripción: Almacena las alertas de precio o indicadores configuradas por los usuarios.
+- Relación: 1:N con auth.users y 1:N con financial_assets.
+- Campos:
+  * id (UUID, PK): Identificador único de la alerta.
+  * user_id (UUID, FK): Usuario que configura la alerta.
+  * asset_id (UUID, FK): Activo financiero sobre el que se vigila.
+  * type (ENUM alert_type): Tipo de alerta (precio, porcentaje, indicador, dividendo).
+  * condition (ENUM alert_condition): Condición a cumplir (por encima, por debajo, etc.).
+  * target_value (NUMERIC): Valor numérico objetivo que dispara la alerta (Ej: 60000 para BTC).
+  * is_active (BOOLEAN): Estado de la alerta (TRUE si está activa, FALSE si el usuario la silenció).
+  * created_at (TIMESTAMPTZ): Fecha de configuración de la alerta.
+
+G. alert_history (Historial de Eventos)
+- Descripción: Registro (log) de cuándo una alerta se ha disparado para informar al usuario.
+- Relación: 1:N con user_alerts y 1:N con auth.users.
+- Campos:
+  * id (UUID, PK): Identificador único del evento.
+  * user_id (UUID, FK): Usuario que recibe la notificación.
+  * alert_id (UUID, FK): Alerta que se disparó (ON DELETE SET NULL: si se borra la alerta, se guarda el historial pero sin referencia).
+  * triggered_price (NUMERIC, opcional): Precio exacto del activo en el momento en que la alerta se disparó (Ej: 60247.50). NULL en registros antiguos o si el precio no estaba disponible.
+  * message (TEXT): Mensaje descriptivo del evento (Ej: "BTC ha cruzado los 60000$").
+  * created_at (TIMESTAMPTZ): Momento exacto en el que se disparó la alerta.
+
+H. system_error_logs (Logs de Errores del Sistema)
+- Descripción: Tabla independiente gestionada exclusivamente por el backend (FastAPI). Registra fallos de conexión, rate limiting o excepciones en el servidor. No es accesible por los usuarios.
+- Campos:
+  * id (UUID, PK): Identificador único del log.
+  * level (ENUM error_level): Severidad del error (INFO, WARNING, ERROR, CRITICAL).
+  * source (TEXT): Origen del error dentro del sistema (Ej: 'BinanceConnector', 'WebSocketServer', 'FastAPI_Middleware').
+  * message (TEXT): Mensaje corto descriptivo del error.
+  * stack_trace (TEXT): Traza completa del error devuelta por Python para facilitar el debugging.
+  * created_at (TIMESTAMPTZ): Momento exacto en el que ocurrió el fallo.
+
+
+I. asset_prices (Precios Históricos de Activos)
+- Descripción: Almacena el histórico de precios de los activos financieros obtenidos desde las APIs externas. Funciona como caché para evitar saturar las APIs y servir gráficos históricos de forma rápida.
+- Relación: 1:N con financial_assets.
+- Campos:
+  * id (UUID, PK): Identificador único del registro de precio.
+  * asset_id (UUID, FK): Referencia al activo (financial_assets.id).
+  * price (NUMERIC): Precio del activo en el momento del registro.
+  * volume (NUMERIC): Volumen de transacción en ese momento (opcional).
+  * timestamp (TIMESTAMPTZ): Fecha y hora exacta a la que corresponde el precio.
+  * source_api (ENUM api_source): API externa de la que se obtuvo el dato (Finnhub o CoinGecko).
+  * created_at (TIMESTAMPTZ): Fecha de inserción del registro en el sistema.
+  * Restricción UNIQUE: Evita duplicados para el mismo activo, timestamp y fuente de datos.
+
+J. user_notifications (Notificaciones de Usuario)
+- Descripción: Almacena las notificaciones generadas cuando una alerta se dispara. Permite al usuario ver un listado de eventos, marcarlos como leídos y evita notificaciones duplicadas por la misma alerta.
+- Relación: 1:N con auth.users y 1:N con user_alerts.
+- Campos:
+  * id (UUID, PK): Identificador único de la notificación.
+  * user_id (UUID, FK): Usuario que recibe la notificación (auth.users.id).
+  * alert_id (UUID, FK): Alerta que generó la notificación (user_alerts.id).
+  * message (TEXT): Mensaje descriptivo de la notificación (Ej: "BTC ha superado los 60000$").
+  * is_read (BOOLEAN): Estado de lectura (FALSE por defecto, TRUE cuando el usuario la marca como leída).
+  * created_at (TIMESTAMPTZ): Fecha y hora en que se generó la notificación.

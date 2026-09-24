@@ -1,5 +1,11 @@
 # Welcome to your Expo app 👋
 
+## Guia de arquitectura de InFinance
+
+La explicacion completa de la arquitectura actual, librerias, flujos de datos,
+testing y reglas para hacer cambios seguros esta en
+[`docs/GUIA_FRONTEND_COMO_ESTA_CONSTRUIDO.md`](../docs/GUIA_FRONTEND_COMO_ESTA_CONSTRUIDO.md).
+
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## Get started

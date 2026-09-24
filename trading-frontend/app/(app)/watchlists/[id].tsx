@@ -1,0 +1,1 @@
+export { WatchlistDetailScreen as default } from '@/features/watchlists/presentation/screens/WatchlistDetailScreen';

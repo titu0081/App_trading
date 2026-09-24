@@ -1,0 +1,107 @@
+2026-09-22 12:48:55.373 | INFO     | src.main:lifespan:25 - Starting InFinance API v1.0.0
+2026-09-22 12:48:57.809 | INFO     | src.infrastructure.database.connection:test_connection:18 - Database connection successful
+2026-09-22 12:49:29.576 | INFO     | src.main:lifespan:31 - Shutting down InFinance API
+2026-09-22 12:49:34.800 | INFO     | src.main:lifespan:25 - Starting InFinance API v1.0.0
+2026-09-22 12:49:36.777 | INFO     | src.infrastructure.database.connection:test_connection:18 - Database connection successful
+2026-09-23 10:04:48.999 | INFO     | src.main:lifespan:25 - Starting InFinance API v1.0.0
+2026-09-23 10:04:51.408 | INFO     | src.infrastructure.database.connection:test_connection:18 - Database connection successful
+2026-09-23 15:23:12.621 | INFO     | src.main:lifespan:31 - Shutting down InFinance API
+2026-09-23 15:23:16.478 | INFO     | src.main:lifespan:25 - Starting InFinance API v1.0.0
+2026-09-23 15:23:18.553 | INFO     | src.infrastructure.database.connection:test_connection:18 - Database connection successful
+2026-09-23 15:23:18.763 | INFO     | src.main:lifespan:31 - Shutting down InFinance API
+2026-09-23 15:23:20.265 | INFO     | src.main:lifespan:25 - Starting InFinance API v1.0.0
+2026-09-23 15:23:22.265 | INFO     | src.infrastructure.database.connection:test_connection:18 - Database connection successful
+2026-09-23 15:24:48.683 | INFO     | src.main:lifespan:31 - Shutting down InFinance API
+2026-09-23 15:24:51.761 | INFO     | src.main:lifespan:25 - Starting InFinance API v1.0.0
+2026-09-23 15:24:53.846 | INFO     | src.infrastructure.database.connection:test_connection:18 - Database connection successful
+2026-09-23 16:15:29.355 | INFO     | src.main:lifespan:31 - Shutting down InFinance API
+2026-09-23 16:15:31.904 | INFO     | src.main:lifespan:25 - Starting InFinance API v1.0.0
+2026-09-23 16:15:33.921 | INFO     | src.infrastructure.database.connection:test_connection:18 - Database connection successful
+2026-09-23 16:21:10.522 | INFO     | src.main:lifespan:31 - Shutting down InFinance API
+2026-09-23 16:21:11.992 | INFO     | src.main:lifespan:25 - Starting InFinance API v1.0.0
+2026-09-23 16:21:15.666 | INFO     | src.infrastructure.database.connection:test_connection:18 - Database connection successful
+2026-09-23 17:04:40.242 | INFO     | src.main:lifespan:31 - Shutting down InFinance API
+2026-09-23 17:04:41.753 | INFO     | src.main:lifespan:25 - Starting InFinance API v1.0.0
+2026-09-23 17:04:43.743 | INFO     | src.infrastructure.database.connection:test_connection:18 - Database connection successful
+2026-09-23 17:07:30.200 | INFO     | src.main:lifespan:31 - Shutting down InFinance API
+2026-09-23 17:07:31.574 | INFO     | src.main:lifespan:25 - Starting InFinance API v1.0.0
+2026-09-23 17:07:33.632 | INFO     | src.infrastructure.database.connection:test_connection:18 - Database connection successful
+2026-09-23 17:11:45.978 | INFO     | src.main:lifespan:31 - Shutting down InFinance API
+2026-09-23 17:11:47.131 | INFO     | src.main:lifespan:25 - Starting InFinance API v1.0.0
+2026-09-23 17:11:49.155 | INFO     | src.infrastructure.database.connection:test_connection:18 - Database connection successful
+2026-09-23 17:29:32.623 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from coingecko: 
+2026-09-23 17:29:37.066 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:29:37.669 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from coingecko: Cannot call "send" once a close message has been sent.
+2026-09-23 17:29:42.234 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:29:42.724 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from coingecko: CoinGecko request failed for BTC: Client error '429 Too Many Requests' for url 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-09-23 17:29:47.400 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:29:47.763 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from coingecko: CoinGecko request failed for BTC: Client error '429 Too Many Requests' for url 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-09-23 17:29:52.582 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:29:52.803 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from coingecko: CoinGecko request failed for BTC: Client error '429 Too Many Requests' for url 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-09-23 17:29:57.762 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:29:57.844 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from coingecko: CoinGecko request failed for BTC: Client error '429 Too Many Requests' for url 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-09-23 17:30:01.401 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from coingecko: CoinGecko request failed for ETH: Client error '429 Too Many Requests' for url 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-09-23 17:30:02.920 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from coingecko: CoinGecko request failed for BTC: Client error '429 Too Many Requests' for url 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-09-23 17:30:02.925 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:06.099 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: 
+2026-09-23 17:30:06.445 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from coingecko: CoinGecko request failed for ETH: Client error '429 Too Many Requests' for url 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-09-23 17:30:07.981 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from coingecko: CoinGecko request failed for BTC: Client error '429 Too Many Requests' for url 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-09-23 17:30:08.103 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:11.285 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:13.276 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:16.459 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:18.453 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:21.644 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:23.621 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:26.832 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:28.801 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:32.003 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:32.512 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from coingecko: CoinGecko request failed for ETH: Client error '429 Too Many Requests' for url 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-09-23 17:30:33.977 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:37.185 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:37.683 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from coingecko: CoinGecko request failed for BTC: Client error '429 Too Many Requests' for url 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-09-23 17:30:39.141 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:42.228 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch AAPL from finnhub: 
+2026-09-23 17:30:42.358 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:42.837 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from coingecko: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:44.321 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:47.409 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch AAPL from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:47.542 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:47.875 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from coingecko: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:49.503 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:52.598 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch AAPL from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:52.726 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:52.833 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from coingecko: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:54.676 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:57.846 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from coingecko: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:57.906 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:57.993 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch AAPL from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:30:59.857 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:01.425 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from coingecko: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:02.961 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from coingecko: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:03.093 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:03.175 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch AAPL from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:05.032 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:06.471 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from coingecko: CoinGecko request failed for ETH: Client error '429 Too Many Requests' for url 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-09-23 17:31:08.025 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from coingecko: CoinGecko request failed for BTC: Client error '429 Too Many Requests' for url 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+2026-09-23 17:31:08.286 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:08.345 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch AAPL from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:10.437 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:13.454 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:13.516 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch AAPL from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:15.600 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:18.623 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch ETH from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:18.683 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch AAPL from finnhub: Cannot call "send" once a close message has been sent.
+2026-09-23 17:31:20.775 | WARNING  | src.api.websocket.price_stream:price_stream:52 - price_stream: failed to fetch BTC from finnhub: Cannot call "send" once a close message has been sent.

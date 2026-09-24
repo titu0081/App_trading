@@ -1,12 +1,6 @@
-from fastapi import FastAPI
+"""Entry point shim so `uvicorn main:app` keeps working from trading-backend/.
+The real application lives in src/main.py (hexagonal architecture)."""
 
-#Inicializar la aplicacion FastAPI
-app = FastAPI(
-    title="Trading Backend API",
-    description="API para el backend de trading",
-    version="1.0.0"
-)
+from src.main import app
 
-@app.get("/")
-async def root():
-    return {"message": "Bienvenido a la API de Trading Backend"}
+__all__ = ["app"]

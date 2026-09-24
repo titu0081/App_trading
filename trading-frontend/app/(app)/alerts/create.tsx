@@ -1,0 +1,1 @@
+export { CreateAlertScreen as default } from '@/features/alerts/presentation/screens/CreateAlertScreen';

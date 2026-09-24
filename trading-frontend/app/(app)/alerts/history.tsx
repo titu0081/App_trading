@@ -1,0 +1,1 @@
+export { AlertHistoryScreen as default } from '@/features/alerts/presentation/screens/AlertHistoryScreen';
